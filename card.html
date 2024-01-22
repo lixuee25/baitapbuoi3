@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+<body>
+   
+    <form name="frm">
+        <p>
+            <label>
+                Product Name:
+                <input type="text" name="pname" id="pname" />
+            </label>
+        </p>
+        <p>
+            <label>
+                Product Picture:
+                <input type="file" id="file-upload" required onchange="showImage()" />
+            </label>
+        </p>
+        <p>
+            <label>
+                Product Price:
+                <input type="text" name="up" id="up" />
+            </label>
+        </p>
+        <p>
+            <button type="button" onclick="addProduct()">Add</button>
+        </p>
+    </form>
+    <hr>
+    <div id="product-info"></div>
+
+    <script type="text/javascript">
+        function showImage() {
+            var fileInput = document.getElementById('file-upload');
+            var file = fileInput.files[0];
+            var reader = new FileReader();
+
+            reader.onload = function(e) {
+                var imageElement = document.createElement('img');
+                imageElement.src = e.target.result;
+
+                var productName = document.getElementById('pname').value;
+                var productPrice = document.getElementById('up').value;
+
+                var productInfo = document.getElementById('product-info');
+                productInfo.innerHTML = '';
+
+                var productElement = document.createElement('div');
+                var productNameElement = document.createElement('p');
+                productNameElement.textContent = productName;
+                productElement.appendChild(productNameElement);
+
+                var productImageElement = document.createElement('img');
+                productImageElement.src = e.target.result; 
+                productElement.appendChild(productImageElement);
+
+                var productPriceElement = document.createElement('p');
+                productPriceElement.textContent = productPrice;
+                productElement.appendChild(productPriceElement);
+
+                var buyButton = document.createElement('button');
+                buyButton.textContent = 'Buy';
+                productElement.appendChild(buyButton);
+
+                productInfo.appendChild(productElement);
+            };
+
+            reader.readAsDataURL(file);
+        }
+
+        function addProduct() {
+            var productName = document.getElementById('pname').value;
+            var productPrice = document.getElementById('up').value;
+            var productImageSrc = document.querySelector('#product-info img').src;
+
+            var productInfo = document.getElementById('product-info');
+            productInfo.innerHTML = '';
+
+            var productElement = document.createElement('div');
+            var productNameElement = document.createElement('p');
+            productNameElement.textContent = productName;
+            productElement.appendChild(productNameElement);
+
+            var productImageElement = document.createElement('img');
+            productImageElement.src = productImageSrc; 
+            productElement.appendChild(productImageElement);
+
+            var productPriceElement = document.createElement('p');
+            productPriceElement.textContent = productPrice;
+            productElement.appendChild(productPriceElement);
+
+            var buyButton = document.createElement('button');
+            buyButton.textContent = 'Buy';
+            productElement.appendChild(buyButton);
+
+            productInfo.appendChild(productElement);
+        }
+    </script>
+</body>
+</html>
